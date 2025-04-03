@@ -31,11 +31,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 resetButton.style.display = 'none';
             }
         }, 1000);
+        localStorage.setItem('timerStartTime', Date.now());
     }
 
     // Load saved time from localStorage
+    let timerStartTime = localStorage.getItem('timerStartTime');
     if (localStorage.getItem('timeLeft')) {
         timeLeft = parseInt(localStorage.getItem('timeLeft'));
+
+        if (timerStartTime) {
+            let elapsedTime = Date.now() - parseInt(timerStartTime);
+            timeLeft -= Math.floor(elapsedTime / 1000);
+
+            if (timeLeft < 0) {
+                timeLeft = 0;
+            }
+        }
+
         updateTimerDisplay();
         resetButton.style.display = 'block';
         inputContainer.style.display = 'none';
@@ -82,11 +94,13 @@ document.addEventListener('DOMContentLoaded', () => {
         timeLeft = timeInSeconds;
         updateTimerDisplay();
         startTimer();
+        localStorage.setItem('timerStartTime', Date.now());
     });
 
     function restartTimer() {
         clearInterval(timerInterval);
         localStorage.removeItem('timeLeft');
+        localStorage.removeItem('timerStartTime');
         timerDisplay.textContent = '00:00:00';
         inputContainer.style.display = 'block';
         resetButton.style.display = 'none';
