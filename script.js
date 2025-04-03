@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         timeLeft = timeInSeconds;
         localStorage.setItem('timeLeft', timeLeft);
+        localStorage.setItem('timeUnit', timeUnit);
         updateTimerDisplay();
         inputContainer.style.display = 'none';
         resetButton.style.display = 'block';
@@ -69,7 +70,16 @@ document.addEventListener('DOMContentLoaded', () => {
     resetButton.addEventListener('click', () => {
         clearInterval(timerInterval);
         initialTime = parseInt(localStorage.getItem('initialTime'));
-        timeLeft = initialTime;
+        const timeUnit = localStorage.getItem('timeUnit');
+        let timeInSeconds = initialTime;
+
+        if (timeUnit === 'minutes') {
+            timeInSeconds = initialTime * 60;
+        } else if (timeUnit === 'days') {
+            timeInSeconds = initialTime * 86400;
+        }
+
+        timeLeft = timeInSeconds;
         updateTimerDisplay();
         startTimer();
     });
