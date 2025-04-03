@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Timer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Web Timer</h1>
+        <div id="timer">00:00:00</div>
+        <div id="input-container">
+            <label for="initial-time">Initial Time:</label>
+            <input type="number" id="initial-time" value="0">
+            <select id="time-unit">
+                <option value="seconds">Seconds</option>
+                <option value="minutes">Minutes</option>
+                <option value="days" selected>Days</option>
+            </select>
+            <button id="start-button">Start</button>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <button id="reset-button" style="display: none;">Reset</button>
+            <button id="restart-button">Restart</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
